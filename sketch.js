@@ -32,7 +32,7 @@ function draw() {
         circle(star.x, star.y, star.size);
         star.y += speed/3;
         if(dist(star.x, star.y) < (height+10)){
-            stars.splice(stars.indexOf(star), 1);
+            stars.splice(stars.indexOf(star), 10);
         }
     }
     for(let bullet of bullets){
@@ -98,11 +98,12 @@ function drawPlayer(i,x,h,size){
 
 
 function createEmemy(){
-    let level = [20,40,50,60,65];
+    let level = [250,200,150,100,50];
+    let seet = [15, 25, 35, 45, 55];
     if(t === 0){
         for(let i=0;i<10;i++){
             let eme = {
-                x : level[j]*(i+1), //start then repeat the rect
+                x : level[j]+(i*seet[j]), //start then repeat the rect
                 y : -10,
             }
             t += 1;
@@ -129,9 +130,9 @@ function drawSpace(){
 }
 
 function keyPressed(){
-    if(keyCode === 32){
+    /*if(keyCode === 32){
         gameState = true;
-    }
+    }*/
     if(keyCode === 80){
         ani = true;
     }
@@ -155,6 +156,9 @@ function startScreen(){
 
 function animation(){
     if(h < height+50){
-        h += speed/5;
+        h += speed/2;
+    }else{
+        gameState = true;
+        createEmemy();
     }
 }
