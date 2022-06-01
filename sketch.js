@@ -1,16 +1,18 @@
 let img;
 let bullets = [];
-let ememies = [];
+let enemies = [];
 let stars = [];
 let t = 0;
 let sc = 0;
 let j = 0;
 let h=0;
-let gameState = false;
+let gameState = true;
 let ani = false;
 
 function preload(){
-    img = loadImage('spaceship.png');
+    player = loadImage('spaceship.png');
+    ufo = loadImage('enemy.png');
+    
 }
 
 function setup() {
@@ -42,38 +44,36 @@ function draw() {
     }
     if(gameState === true){
         createEmemy();
-        for(let ememy of ememies){
-            ememy.y += speed/10;
-            fill(255,10,0);
-            rect(ememy.x, ememy.y, 10, 10);
-            if(dist(ememy.x, ememy.y) < height){
-                ememies.splice(ememies.indexOf(ememy),1);
+        for(let enemy of enemies){
+            enemy.y += speed/10;
+            image(ufo, enemy.x, enemy.y, enemy.size, enemy.size);
+            if(enemy.y > height){
+                startScreen("Game Over");
+                enemies.splice(enemies.indexOf(enemy),1);
+                noLoop();
             }
         }
     }
-    for(let ememy of ememies){
+    for(let enemy of enemies){
         for(let bullet of bullets){
-            if(dist(ememy.x, ememy.y, bullet.x, bullet.y) < 15){
-                ememies.splice(ememies.indexOf(ememy), 1);
+            if(dist(enemy.x + (enemy.size/2), enemy.y + (enemy.size/2), bullet.x, bullet.y) < 17){
+                enemies.splice(enemies.indexOf(enemy), 1);
                 bullets.splice(bullets.indexOf(bullet), 1);
                 sc += 10;
             }
-            if(ememies.length == 0){
+            if(enemies.length == 0){
                 t = 0;
                 j++;
                 createEmemy();
             }
-            textSize(12);
-            text(ememies.length,10 ,40);
         }
     }
-    drawPlayer(img,mouseX,height,size);
+    drawPlayer(player,mouseX,height,size);
     playerScore(sc);
-    startScreen();
+    /*startScreen("Press P to Start the Game.");
     if(ani == true){
         animation();
-    }
-    //ellipse((mouseX-20), (height-100), 2, 2);
+    }*/
 }
 
 function mousePressed(){
@@ -82,6 +82,18 @@ function mousePressed(){
         y : height-50
     }
     bullets.push(bullet);
+}
+
+function touchStarted(){
+    if(x<12){
+        x += 50;
+    }
+    if(x > width-12){
+        x = (width-50);
+    }
+    image(i, (x-25), (h-70), size, size);
+    textSize(12);
+    text((x),10, 10);
 }
 
 function drawPlayer(i,x,h,size){
@@ -98,16 +110,17 @@ function drawPlayer(i,x,h,size){
 
 
 function createEmemy(){
-    let level = [250,200,150,100,50];
-    let seet = [15, 25, 35, 45, 55];
+    let level = [70, 60, 50, 40, 30];
+    let seet = [60, 45, 65, 85, 70];
     if(t === 0){
         for(let i=0;i<10;i++){
             let eme = {
                 x : level[j]+(i*seet[j]), //start then repeat the rect
                 y : -10,
+                size : 30,
             }
             t += 1;
-            ememies.push(eme);
+            enemies.push(eme);
         }
     }
 }
@@ -130,9 +143,6 @@ function drawSpace(){
 }
 
 function keyPressed(){
-    /*if(keyCode === 32){
-        gameState = true;
-    }*/
     if(keyCode === 80){
         ani = true;
     }
@@ -146,11 +156,10 @@ function playerScore(sc){
     text("Score: "+sc, 10, 40);
 }
 
-function startScreen(){
+function startScreen(msg){
     textSize(32);
     textAlign(CENTER);
     fill(255, 0, 0);
-    let msg = "Press P to Start the Game."
     text(msg, width/2, h);
 }
 
