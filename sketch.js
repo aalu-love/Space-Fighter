@@ -92,6 +92,7 @@ function touchStarted(){
         x = (width-50);
     }
     image(i, (x-25), (h-70), size, size);
+    mousePressed();
     textSize(12);
     text((x),10, 10);
 }
