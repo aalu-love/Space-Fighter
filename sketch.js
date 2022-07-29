@@ -15,17 +15,13 @@ function preload(){
     
 }
 
-function windowResized()
-{
-  resizeCanvas(windowWidth,windowHeight);
-}
-
 function setup() {
     background(0);
     let canv = createCanvas(700, 700);
     h = height/2;
-    let x = (windowWidth - width) / 2;
-    let y = (windowHeight - height) / 2;
+    let spacing = 20;
+    let x = spacing * 2;
+    let y = spacing * 2;
     canv.position(x,y);
 }
 
