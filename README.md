@@ -5,3 +5,7 @@ Mouse : Move left and right.<br>
 Mouse-Left-Button : Shoot.
 
 Play Here : https://aalu-love.github.io/Space-Fighter/
+
+
+
+Note: It works only in Windows and android is in under progress.
