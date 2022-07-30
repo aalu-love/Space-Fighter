@@ -9,11 +9,14 @@ let h=0;
 let gameState = true;
 let ani = false;
 let shoot,gameover,collision;
+let screenW = window.innerWidth;
+let screenH = window.innerHeight;
 
 function preload(){
     soundFormats('mp3','wav');
     sampleRate(1)
     shoot = loadSound('assets/shoot.mp3');
+    gamemusic = loadSound('assets/Turbocharged.mp3');
     gameover = loadSound('assets/gameover.mp3');
     collision = loadSound('assets/collsion.mp3');
     player = loadImage('spaceship.png');
@@ -21,15 +24,21 @@ function preload(){
     
 }
 
+
+
 function setup() {
     background(0);
-    console.log(windowWidth);
-    let canv = createCanvas(1000, 1000);
+    let screenWidth = screenH / 1.3;
+    let screenHeight = screenH / 1.3;
+    let canv = createCanvas(parseInt(screenWidth), parseInt(screenHeight));
+    console.log(parseInt(screenWidth), parseInt(screenHeight));
+    console.log(screenW, screenH);
     h = height/2;
-    let spaceing = 20;
+    let spaceing = 5;
     let x = spaceing * 2;
     let y = spaceing * 2;
     canv.position(x,y);
+    gamemusic.play();
 }
 
 let x = -10;
@@ -61,6 +70,7 @@ function draw() {
             if(enemy.y > height){
                 startScreen("Game Over");
                 gameover.play();
+                gamemusic.stop();
                 enemies.splice(enemies.indexOf(enemy),1);
                 noLoop();
             }
@@ -90,6 +100,7 @@ function draw() {
 }
 
 function mousePressed(){
+    //shoot.volume(0.5);
     shoot.play();
     let bullet = {
         x : mouseX,
@@ -118,22 +129,25 @@ function drawPlayer(i,x,h,size){
     if(x > width-12){
         x = (width-50);
     }
-    image(i, (x-25), (h-70), size, size);
+    image(i, (x-25), (h-70), (screenH/25), (screenH/25));
     textSize(12);
     text((x),10, 10);
 }
 
+function getRandom(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 
 function createEmemy(){
-    let level = [70, 60, 50, 40, 30];
-    let seet = [60, 45, 65, 85, 70];
     if(t === 0){
         for(let i=0;i<10;i++){
             let eme = {
-                x : level[j]+(i*seet[j]), //start then repeat the rect
+                x : getRandom(15,screenW/1.4), //start then repeat the rect
                 y : -10,
-                size : 30,
+                size : screenH / 25,
             }
+            console.log(eme.x);
             t += 1;
             enemies.push(eme);
         }
