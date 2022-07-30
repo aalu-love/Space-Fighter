@@ -23,7 +23,8 @@ function preload(){
 
 function setup() {
     background(0);
-    let canv = createCanvas(700, 700);
+    console.log(windowWidth);
+    let canv = createCanvas(1000, 1000);
     h = height/2;
     let spaceing = 20;
     let x = spaceing * 2;
