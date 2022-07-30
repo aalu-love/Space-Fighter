@@ -8,8 +8,14 @@ let j = 0;
 let h=0;
 let gameState = true;
 let ani = false;
+let shoot,gameover,collision;
 
 function preload(){
+    soundFormats('mp3','wav');
+    sampleRate(1)
+    shoot = loadSound('assets/shoot.mp3');
+    gameover = loadSound('assets/gameover.mp3');
+    collision = loadSound('assets/collsion.mp3');
     player = loadImage('spaceship.png');
     ufo = loadImage('enemy.png');
     
@@ -19,9 +25,9 @@ function setup() {
     background(0);
     let canv = createCanvas(700, 700);
     h = height/2;
-    let spacing = 20;
-    let x = spacing * 2;
-    let y = spacing * 2;
+    let spaceing = 20;
+    let x = spaceing * 2;
+    let y = spaceing * 2;
     canv.position(x,y);
 }
 
@@ -53,6 +59,7 @@ function draw() {
             image(ufo, enemy.x, enemy.y, enemy.size, enemy.size);
             if(enemy.y > height){
                 startScreen("Game Over");
+                gameover.play();
                 enemies.splice(enemies.indexOf(enemy),1);
                 noLoop();
             }
@@ -63,6 +70,7 @@ function draw() {
             if(dist(enemy.x + (enemy.size/2), enemy.y + (enemy.size/2), bullet.x, bullet.y) < 17){
                 enemies.splice(enemies.indexOf(enemy), 1);
                 bullets.splice(bullets.indexOf(bullet), 1);
+                collision.play();
                 sc += 10;
             }
             if(enemies.length == 0){
@@ -81,6 +89,7 @@ function draw() {
 }
 
 function mousePressed(){
+    shoot.play();
     let bullet = {
         x : mouseX,
         y : height-50
