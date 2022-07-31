@@ -39,6 +39,7 @@ function setup() {
     let y = spaceing * 2;
     canv.position(x,y);
     gamemusic.play();
+    gamemusic.loop();
 }
 
 let x = -10;
@@ -91,7 +92,7 @@ function draw() {
             }
         }
     }
-    drawPlayer(player,mouseX,height,size);
+    drawPlayer(player,mouseX,height,screenH);
     playerScore(sc);
     /*startScreen("Press P to Start the Game.");
     if(ani == true){
@@ -129,9 +130,9 @@ function drawPlayer(i,x,h,size){
     if(x > width-12){
         x = (width-50);
     }
-    image(i, (x-25), (h-70), (screenH/25), (screenH/25));
+    image(i, (x-25), (h-70), (size/18), (size/18));
     textSize(12);
-    text((x),10, 10);
+    //text((x),10, 10);
 }
 
 function getRandom(min, max) {
@@ -143,7 +144,7 @@ function createEmemy(){
     if(t === 0){
         for(let i=0;i<10;i++){
             let eme = {
-                x : getRandom(15,screenW/1.4), //start then repeat the rect
+                x : getRandom(15,screenH/1.4), //start then repeat the rect
                 y : -10,
                 size : screenH / 25,
             }
@@ -180,7 +181,7 @@ function keyPressed(){
 
 function playerScore(sc){
     textSize(32);
-    fill(0, 0, 255);
+    fill(0, 245, 24);
     textAlign(LEFT);
     text("Score: "+sc, 10, 40);
 }
