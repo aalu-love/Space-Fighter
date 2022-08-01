@@ -211,11 +211,11 @@ function animation(){
 
 function getPlatform() {
     var platform = ["Win32", "Android", "iOS"];
- 
+    let s = document.getElementById("device");
+    
     for (var i = 0; i < platform.length; i++) {
- 
         if (navigator.platform.indexOf(platform[i]) >- 1) {
- 
+            s.innerHTML = platform[i];
             return platform[i];
         }
     }
