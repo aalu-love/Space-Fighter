@@ -28,8 +28,15 @@ function preload(){
 
 function setup() {
     background(0);
-    let screenWidth = screenH / 1.3;
-    let screenHeight = screenH / 1.3;
+    var screenHeight, screenWidth;
+    if(getPlatform() == "Win32"){
+        screenWidth = screenH / 1.3;
+        screenHeight = screenH / 1.3;
+    }
+    if(getPlatform() == ("Android" || "iOS")){
+        screenWidth = screenW / 1.3;
+        screenHeight = screenW / 1.3;
+    }
     let canv = createCanvas(parseInt(screenWidth), parseInt(screenHeight));
     console.log(parseInt(screenWidth), parseInt(screenHeight));
     console.log(screenW, screenH);
@@ -199,5 +206,17 @@ function animation(){
     }else{
         gameState = true;
         createEmemy();
+    }
+}
+
+function getPlatform() {
+    var platform = ["Win32", "Android", "iOS"];
+ 
+    for (var i = 0; i < platform.length; i++) {
+ 
+        if (navigator.platform.indexOf(platform[i]) >- 1) {
+ 
+            return platform[i];
+        }
     }
 }
