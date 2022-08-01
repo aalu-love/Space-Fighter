@@ -33,9 +33,9 @@ function setup() {
         screenWidth = screenH / 1.3;
         screenHeight = screenH / 1.3;
     }
-    if(getPlatform() == ("Android" || "iOS")){
-        screenWidth = screenW - 20;
-        screenHeight = screenW - 20;
+    if(getPlatform() == "Android" || getPlatform() == "iOS"){
+        screenWidth = screenH - 20;
+        screenHeight = screenH - 20;
     }
     let canv = createCanvas(parseInt(screenWidth), parseInt(screenHeight));
     console.log(parseInt(screenWidth), parseInt(screenHeight));
