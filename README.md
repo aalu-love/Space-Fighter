@@ -8,4 +8,4 @@ Play Here : https://aalu-love.github.io/Space-Fighter/
 
 
 
-Note: It works only in Windows and android is in under progress.
+Note: It works only in Windows. And android is in under progress.
