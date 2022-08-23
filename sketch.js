@@ -11,10 +11,11 @@ let ani = false;
 let shoot,gameover,collision;
 let screenW = window.innerWidth;
 let screenH = window.innerHeight;
+var screenWidth, screenHeight;
 
 function preload(){
     soundFormats('mp3','wav');
-    sampleRate(1)
+    sampleRate(1);
     shoot = loadSound('assets/shoot.mp3');
     gamemusic = loadSound('assets/Turbocharged.mp3');
     gameover = loadSound('assets/gameover.mp3');
@@ -24,22 +25,20 @@ function preload(){
     
 }
 
-
-
 function setup() {
     background(0);
-    var screenHeight, screenWidth;
+    console.log(getPlatform());
     if(getPlatform() == "Win32"){
-        screenWidth = screenH / 1.3;
-        screenHeight = screenH / 1.3;
+        screenWidth = screenH / 1.2;
+        screenHeight = screenH / 1.2;
     }
-    if(getPlatform() == "Android" || getPlatform() == "iOS"){
-        screenWidth = screenH - 20;
-        screenHeight = screenH - 20;
+    if(getPlatform() != "Win32"){
+        screenWidth = screenW / 1.2;
+        screenHeight = screenW / 1.2;
     }
     let canv = createCanvas(parseInt(screenWidth), parseInt(screenHeight));
-    console.log(parseInt(screenWidth), parseInt(screenHeight));
-    console.log(screenW, screenH);
+    console.log("Canvas Size : ",parseInt(screenWidth), parseInt(screenHeight));
+    console.log("Screen Size : ",screenW, screenH);
     h = height/2;
     let spaceing = 5;
     let x = spaceing * 2;
@@ -99,7 +98,7 @@ function draw() {
             }
         }
     }
-    drawPlayer(player,mouseX,height,screenH);
+    drawPlayer(player,mouseX,height,screenHeight);
     playerScore(sc);
     /*startScreen("Press P to Start the Game.");
     if(ani == true){
@@ -151,9 +150,9 @@ function createEmemy(){
     if(t === 0){
         for(let i=0;i<10;i++){
             let eme = {
-                x : getRandom(15,screenH/1.4), //start then repeat the rect
+                x : getRandom(15,screenHeight/1.4), //start then repeat the rect
                 y : -10,
-                size : screenH / 25,
+                size : screenHeight / 20,
             }
             console.log(eme.x);
             t += 1;
@@ -211,11 +210,9 @@ function animation(){
 
 function getPlatform() {
     var platform = ["Win32", "Android", "iOS"];
-    let s = document.getElementById("device");
     
     for (var i = 0; i < platform.length; i++) {
         if (navigator.platform.indexOf(platform[i]) >- 1) {
-            s.innerHTML = platform[i];
             return platform[i];
         }
     }
