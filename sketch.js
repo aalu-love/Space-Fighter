@@ -91,7 +91,7 @@ function draw() {
                 collision.play();
                 sc += 10;
             }
-            if(enemies.length == 0){
+            if(enemies.length == 2){
                 t = 0;
                 j++;
                 createEmemy();
@@ -148,10 +148,10 @@ function getRandom(min, max) {
 
 function createEmemy(){
     if(t === 0){
-        for(let i=0;i<10;i++){
+        for(let i=0;i<Math.floor(Math.random(1, 7)* 10);i++){
             let eme = {
                 x : getRandom(15,screenHeight/1.4), //start then repeat the rect
-                y : -10,
+                y : -25,
                 size : screenHeight / 20,
             }
             console.log(eme.x);
